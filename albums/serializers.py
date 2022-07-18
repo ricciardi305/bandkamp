@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from songs.serializers import SongSerializer
+from songs.serializers import ListSongSerializer
 from django.db.models import Sum
 
 from .models import Album
 
 
 class CreateAlbumSerializer(serializers.ModelSerializer):
-    songs = SongSerializer(many=True, read_only=True)
+    songs = ListSongSerializer(many=True, read_only=True)
     total_duration = serializers.SerializerMethodField()
 
     class Meta:
