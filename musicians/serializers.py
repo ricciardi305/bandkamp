@@ -21,3 +21,14 @@ class MusicianSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+
+class CreateMusicianSerializer(serializers.ModelSerializer):
+    albums = AlbumSerializer(many=True, read_only=True)
+    class Meta:
+        model = Musician
+        fields = "__all__"
+
+class ListMusicianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Musician
+        fields = "__all__"
