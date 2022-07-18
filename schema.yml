@@ -1,0 +1,470 @@
+openapi: 3.0.3
+info:
+  title: BandKamp
+  version: 1.0.0
+paths:
+  /api/musicians/:
+    get:
+      operationId: root_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedListMusicianList'
+          description: ''
+    post:
+      operationId: root_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMusician'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateMusician'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateMusician'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMusician'
+          description: ''
+  /api/musicians/{musician_id}/:
+    get:
+      operationId: root_retrieve
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMusician'
+          description: ''
+    put:
+      operationId: root_update
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: root_partial_update
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCreateMusician'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCreateMusician'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCreateMusician'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMusician'
+          description: ''
+    delete:
+      operationId: root_destroy
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/musicians/{musician_id}/albums/:
+    get:
+      operationId: albums_list
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - albums
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedListAlbumList'
+          description: ''
+    post:
+      operationId: albums_create
+      parameters:
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - albums
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAlbum'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateAlbum'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateAlbum'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAlbum'
+          description: ''
+  /api/musicians/{musician_id}/albums/{album_id}/songs/:
+    get:
+      operationId: albums_songs_list
+      parameters:
+      - in: path
+        name: album_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - albums
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedListSongList'
+          description: ''
+    post:
+      operationId: albums_songs_create
+      parameters:
+      - in: path
+        name: album_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: musician_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - albums
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSong'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSong'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSong'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSong'
+          description: ''
+components:
+  schemas:
+    CreateAlbum:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListSong'
+          readOnly: true
+        total_duration:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        musician:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - musician
+      - name
+      - songs
+      - total_duration
+    CreateMusician:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        instrument:
+          type: string
+          maxLength: 255
+      required:
+      - first_name
+      - id
+      - instrument
+      - last_name
+    CreateSong:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        album:
+          type: integer
+          readOnly: true
+      required:
+      - album
+      - id
+      - name
+    ListAlbum:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        musician:
+          type: integer
+      required:
+      - id
+      - musician
+      - name
+    ListMusician:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        instrument:
+          type: string
+          maxLength: 255
+      required:
+      - first_name
+      - id
+      - instrument
+      - last_name
+    ListSong:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        duration:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        album:
+          type: integer
+      required:
+      - album
+      - id
+      - name
+    PaginatedListAlbumList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListAlbum'
+    PaginatedListMusicianList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListMusician'
+    PaginatedListSongList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListSong'
+    PatchedCreateMusician:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        instrument:
+          type: string
+          maxLength: 255
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
