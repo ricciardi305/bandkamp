@@ -32,6 +32,7 @@ class MusicianDetailView(SwitchMethodMixin, RetrieveUpdateDestroyAPIView):
         "GET": ListMusicianSerializer,
         "PATCH": CreateMusicianSerializer,
         "DELETE": CreateMusicianSerializer,
+        "PUT": CreateMusicianSerializer,
     }
 
 
@@ -42,7 +43,7 @@ class MusicianAlbumView(SwitchMethodMixin, ListCreateAPIView):
     serializer_map = {"GET": ListAlbumSerializer, "POST": CreateAlbumSerializer}
 
     def perform_create(self, serializer):
-        musician = Musician.objects.get(id=self.kwargs["musician_id"])
+        musician = get_object_or_404(Musician, pk=self.kwargs["musician_id"])
         serializer.save(musician=musician)
 
 

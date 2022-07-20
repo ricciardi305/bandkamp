@@ -11,14 +11,19 @@ class CreateAlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = "__all__"
+        fields = ["id", "songs", "total_duration", "name", "musician"]
         extra_kwargs = {"musician": {"read_only": True}}
 
-    def get_total_duration(self, album: Album):
-        return album.songs.aggregate(Sum("duration"))
+    def get_total_duration(self, obj) -> dict:
+        return obj.songs.aggregate(Sum("duration"))
 
 
 class ListAlbumSerializer(serializers.ModelSerializer):
+    quantity_songs = serializers.SerializerMethodField()
+
     class Meta:
         model = Album
         fields = "__all__"
+
+    def get_quantity_songs(self, obj) -> int:
+        return obj.songs.count()
