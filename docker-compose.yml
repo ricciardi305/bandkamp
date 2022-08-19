@@ -1,39 +1,35 @@
-version: '3.7'
+version: "3.7"
 
 services:
-    db:
-        image: postgres:latest #(1)
-        env_file: .env #(2)
-        ports: #(3)
-            - 5431:5432
-        volumes: #(4)
-           - pgdata:/var/lib/postgresql/data
+  bandkamp_db:
+    image: postgres:latest
+    env_file: .env
+    ports:
+      - 5431:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
-    migration: #(5)
-        build: . #(6)
-        env_file: .env #(3)
-        command: #(7)
-            bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate'
-        volumes: #(4)
-            - .:/code
-        depends_on: #(8)
-            - db
+  migration:
+    build: .
+    env_file: .env
+    command: bash -c 'while !</dev/tcp/db_pet_ctrl/5432; do sleep; done; python manage.py migrate'
+    volumes:
+      - .:/code
+    depends_on:
+      - bandkamp_db
+  web:
+    build: .
+    env_file: .env
+    command: bash -c 'while !</dev/tcp/db_pet_ctrl/5432; do sleep; done; python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
+    ports:
+      - 8000:8000
+    depends_on:
+      - bandkamp_db
+      - migration
 
-    web:
-        build: . #(6)
-        env_file: .env #(3)
-        command: #(7)
-            bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
-        volumes: #(4)
-            - .:/code
-        stdin_open: true #(9)
-        tty: true #(10)
-        ports: #(3)
-            - 8000:8000
-
-        depends_on: #(8)
-            - db
-            - migration
-
-volumes: #(4)
-    pgdata:
+volumes:
+  pgdata:
