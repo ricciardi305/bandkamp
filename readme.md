@@ -23,7 +23,7 @@
 # Sobre
 
 Bandkamp é um projeto de avaliação do 2º módulo de back-end da [Kenzie Academy](https://kenzie.com.br/), módulo focado em python. A API Bandkamp simula uma produtora musical onde podemos cadastrar um músico, albúm e músicas, sendo que as músicas estarão relacionadas a um ábul e músico e o album estará relacionado a um músico.<br />
-Esse projeto foi construído com base na arquitura MVC - Model-View-Controller e utiliza as fetures de Generic View e Model Serializers do Django Rest Framework, além de outras tecnologias que serão listadas mais adiante.
+Esse projeto foi construído com base na arquitura MVC - Model-View-Controller e conceitos de Clean Code. Além disso, utiliza as fetures de Generic View e Model Serializers do Django Rest Framework, além de outras tecnologias que serão listadas mais adiante.
 
 # Features
 
