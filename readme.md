@@ -80,7 +80,8 @@ $ pip install -r requirements.txt
 docker-compose up
 ```
 
-Arquivo do insomnia para interagir com a API [aqui](github/bandkamp-workspace.json).
+Arquivo do insomnia para interagir com a API [aqui](github/bandkamp-workspace.json).<br/>
+Acesse a documentação [aqui](http://localhost:8000/api/schema/swagger-ui/)
 
 ## Screenshot do Insomnia
 
