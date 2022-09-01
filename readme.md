@@ -27,29 +27,16 @@ Esse projeto foi construído com base na arquitura MVC - Model-View-Controller e
 
 # Features
 
-- [x] Músicos
-  - [x] Cadastro
-    ```json
-    {
-    	"first_name": "John",
-    	"last_name": "Frusciante",
-    	"instrument": "Guitar"
-    }
-    ```
-  - [x] Listagem
-  - [x] Atualização
-  - [x] Deleção
-- [x] Álbums
-  - [x] Criação
-    ```json
-    {
-    	"name": "The Empyrean"
-    }
-    ```
-  - [x] Listagem
-- [x] Músicas
-  - [x] Criação
-        `json { "name": "The Empyrean" } `
+- Músicos:
+    - [x] Cadastrar um novo músico
+    - [x] Listar todos os músicos
+    - [x] Atualizar um músico a partir da ID
+    - [x] Deletar um músico pelo ID
+- Álbuns:
+    - [x] Criar um álbum (O album deve estar relacionado a um músico já existente)
+    - [x] Listar todos os de um músico
+- Músicas:
+    - [x] Criar uma música (A mísica deve estar relacionada a um álbum já existente) 
 
 # Pré-requisitos
 
