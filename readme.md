@@ -8,7 +8,7 @@ Nessa api a ideia principal é criar uma produtora, onde pode-se criar um músic
 
 Essa api possui 4 rotas. 
 
-A documentação pode ser acessada via [localhost](http://127.0.0.1:8000/api/schema/swagger-ui/)
+A documentação pode ser acessada via [localhost](http://localhost:8000/api/schema/swagger-ui/)
 <br>
 <br>
 # Instruções para iniciar aplicação
