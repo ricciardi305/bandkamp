@@ -81,7 +81,7 @@ docker-compose up
 ```
 
 Arquivo do insomnia para interagir com a API [aqui](github/bandkamp-workspace.json).<br/>
-Acesse a documentação [aqui](http://localhost:8000/api/schema/swagger-ui/)
+Acesse a documentação em [localhost.](http://localhost:8000/api/schema/swagger-ui/)
 
 ## Screenshot do Insomnia
 
